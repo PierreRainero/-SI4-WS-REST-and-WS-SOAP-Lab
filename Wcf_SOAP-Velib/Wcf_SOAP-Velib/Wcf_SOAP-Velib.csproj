@@ -50,6 +50,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadRequestException.cs" />
     <Compile Include="IService1.cs" />
     <Compile Include="IVelibOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,7 +58,9 @@
     <Compile Include="VelibOperations.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

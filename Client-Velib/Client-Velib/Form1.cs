@@ -11,6 +11,7 @@ namespace Client_Velib{
 
         public Form1(){
             InitializeComponent();
+            this.Text = "GUI - Velib";
             velibClient = new VelibSOAP.VelibOperationsClient();
         }
 
@@ -20,6 +21,7 @@ namespace Client_Velib{
             if(cityChosen != ""){
                 IList<string> response = velibClient.getStations(cityChosen);
                 stationsComboBox.Items.Clear();
+                bikeNb.Text = "";
 
                 foreach (string item in response)
                     stationsComboBox.Items.Add(item);
