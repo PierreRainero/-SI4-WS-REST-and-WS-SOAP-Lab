@@ -23,10 +23,11 @@ namespace Wcf_SOAP_Velib{
             JArray jsonArray = JArray.Parse(getData(city));
             int size = jsonArray.Count;
 
-            for (int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++)
+            {
                 var item = (JObject)jsonArray[i];
                 if (station.ToLower().Contains(((string)item["name"]).ToLower()))
-                    return (int)item["available_bikes"];
+                    return Convert.ToInt32(item["available_bikes"]);
             }
 
             return -1;
