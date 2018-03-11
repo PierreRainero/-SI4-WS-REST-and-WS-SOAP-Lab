@@ -22,15 +22,14 @@ namespace Wcf_SOAP_Velib{
         public int getAvailableBikes(string city, string station){
             JArray jsonArray = JArray.Parse(getData(city));
             int size = jsonArray.Count;
-            int res = 0;
 
             for (int i = 0; i < size; i++){
                 var item = (JObject)jsonArray[i];
                 if (station.ToLower().Contains(((string)item["name"]).ToLower()))
-                    res = (int)item["available_bikes"];
+                    return (int)item["available_bikes"];
             }
 
-            return res;
+            return -1;
         }
 
         private string getData(string city) {
