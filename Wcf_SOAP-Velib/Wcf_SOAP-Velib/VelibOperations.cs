@@ -39,33 +39,58 @@ namespace Wcf_SOAP_Velib{
         }
 
         public IList<string> getStations(string city){
+            return parseStations(getDataForCity(city));
+        }
+
+        public async Task<IList<string>> getStationsAsync(string city){
+            Task<string> getCityData = getDataForCityAsync(city);
+            string cityData = await getCityData;
+
+            return parseStations(cityData);
+        }
+
+        private IList<string> parseStations(string cityData){
             JArray jsonArray = null;
             IList<string> res = new List<string>();
 
             try{
-                jsonArray = JArray.Parse(getDataForCity(city));
-            } catch(BadRequestException e){
+                jsonArray = JArray.Parse(cityData);
+            }
+            catch (BadRequestException e){
                 return res;
             }
-            
+
             int size = jsonArray.Count;
 
             for (int i = 0; i < size; i++)
                 res.Add((string)((JObject)jsonArray[i])["name"]);
-            
+
             return res;
         }
 
         public int getAvailableBikes(string city, string station){
+            return parseAvailableBikes(getDataForCity(city), station);
+        }
+
+        public async Task<int> getAvailableBikesAsync(string city, string station){
+            Task<string> getCityData = getDataForCityAsync(city);
+            string cityData = await getCityData;
+
+            return parseAvailableBikes(getDataForCity(city), station);
+        }
+
+        private int parseAvailableBikes(string cityData, string station){
             JArray jsonArray = null;
             try{
-                jsonArray = JArray.Parse(getDataForCity(city));
-            } catch(BadRequestException e){
+                jsonArray = JArray.Parse(cityData);
+            }
+            catch (BadRequestException e){
                 return -1;
             }
             int size = jsonArray.Count;
 
-            for (int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++)
+            {
                 var item = (JObject)jsonArray[i];
                 if (((string)item["name"]).ToLower().Contains(station.ToLower()))
                     return Convert.ToInt32(item["available_bikes"]);
@@ -111,6 +136,12 @@ namespace Wcf_SOAP_Velib{
             }
 
             return reader.ReadToEnd();
+        }
+
+        private Task<string> getDataForCityAsync(string city){
+            return Task<string>.Run(() => {
+                return getDataForCity(city);
+            });
         }
 
     }

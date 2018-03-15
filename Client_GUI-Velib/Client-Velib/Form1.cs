@@ -30,23 +30,39 @@ namespace Client_Velib{
         private void cityButton_Click(object sender, EventArgs e){
             cityChosen = cityComboBox.SelectedItem.ToString();
 
-            if(cityChosen != ""){
-                IList<string> response = velibClient.getStations(cityChosen);
-                stationComboBox.Items.Clear();
-                bikeNb.Text = "";
+            if(cityChosen != "")
+                updateStationsComboBox();
+        }
 
-                foreach (string item in response)
-                    stationComboBox.Items.Add(item);
+        private async void updateStationsComboBox(){
+            Task<string[]> asyncResponse = velibClient.getStationsAsync(cityChosen);
+            string[] response = await asyncResponse;
 
-            }
+            stationComboBox.SelectedItem = null;
+            stationComboBox.Items.Clear();
+            bikeNb.Text = "";
+
+            foreach (string item in response)
+                stationComboBox.Items.Add(item);
+
+            stationComboBox.SelectedIndex = 0;
         }
 
         private void selectedItemChange(object sender, EventArgs e){
+            if (stationComboBox.SelectedItem == null)
+                return;
+
             stationChosen = stationComboBox.SelectedItem.ToString();
             cityChosen = cityComboBox.SelectedItem.ToString();
-            
+
             if (cityChosen != "" && stationChosen != "")
-                bikeNb.Text = velibClient.getAvailableBikes(cityChosen, stationChosen).ToString();
+                updateStationsInfos();
+        }
+
+        private async void updateStationsInfos(){
+            Task<int> asyncResponse = velibClient.getAvailableBikesAsync(cityChosen, stationChosen);
+            int response = await asyncResponse;
+            bikeNb.Text = velibClient.getAvailableBikes(cityChosen, stationChosen).ToString();
         }
     }
 }
