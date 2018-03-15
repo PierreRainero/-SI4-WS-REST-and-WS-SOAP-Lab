@@ -25,7 +25,7 @@ namespace Client_Console_Velib{
     class Commande{
         public CommandeEnum cmd { get; }
 
-        private static readonly string AVAILABLE_CMD = "\nListe des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT) + "\n - " + CommandeEnum.HELP + " : " + Commande.GetEnumDescription(CommandeEnum.HELP);
+        private static readonly string AVAILABLE_CMD = "Liste des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT) + "\n - " + CommandeEnum.HELP + " : " + Commande.GetEnumDescription(CommandeEnum.HELP);
         private VelibSOAP.VelibOperationsClient velibClient;
         private string[] args;
 
@@ -47,8 +47,8 @@ namespace Client_Console_Velib{
                     break;
 
                 case CommandeEnum.STATIONS:
-                    if (args.Length != 1){
-                        availableCmd();
+                    if (args.Length < 1){
+                        Console.WriteLine("/!\\ La commande \"STATIONS\" prend un argument");
                         break;
                     }
                     Console.WriteLine(getStations());
@@ -56,7 +56,7 @@ namespace Client_Console_Velib{
 
                 case CommandeEnum.AVAILABLE_BIKES:
                     if (args.Length < 2){
-                        availableCmd();
+                        Console.WriteLine("/!\\ La commande \"AVAILABLE_BIKES\" prend deux arguments");
                         break;
                     }
                     Console.WriteLine(getBikes());
@@ -111,8 +111,7 @@ namespace Client_Console_Velib{
         public static string GetEnumDescription(CommandeEnum value){
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
-            DescriptionAttribute[] attributes =
-                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;

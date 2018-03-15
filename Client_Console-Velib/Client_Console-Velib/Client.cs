@@ -2,6 +2,7 @@
 
 namespace Client_Console_Velib{
     class Client{
+        private static readonly string separator = "———————————————————————————————————————————————————————————";
         public bool status { get; private set; }
 
         public Client(){
@@ -15,12 +16,12 @@ namespace Client_Console_Velib{
         public void executeCmd(string cmd){
             Commande parsedCmd = parseCmd(cmd);
 
-            if (parsedCmd == null){
-                Console.WriteLine("<<Commande inconnue : "+ cmd + ">>\n--- Utilisez HELP ---");
-                return;
-            }
+            if (parsedCmd == null)
+                Console.WriteLine("<<Commande inconnue : "+ cmd + ">>\n>>> Utilisez HELP <<<");
+            else
+                status = parsedCmd.execute();
 
-            status = parsedCmd.execute();
+            Console.WriteLine(separator);
         }
 
         private Commande parseCmd(string cmd){
