@@ -16,7 +16,7 @@ namespace Client_Console_Velib{
             Commande parsedCmd = parseCmd(cmd);
 
             if (parsedCmd == null){
-                Commande.availableCmd();
+                Console.WriteLine("<<Commande inconnue : "+ cmd + ">>\n--- Utilisez HELP ---");
                 return;
             }
 
@@ -27,24 +27,22 @@ namespace Client_Console_Velib{
             Commande res = null;
             CommandeEnum c;
             string[] parts;
-            string[] sep = { "<" };
+            string[] sep = { " " };
 
-            parts = cmd.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
-
-            if (parts.Length <= 0)
+            if(cmd == "")
                 return res;
 
+            parts = cmd.Split(sep, StringSplitOptions.RemoveEmptyEntries);
             if (Enum.IsDefined(typeof(CommandeEnum), parts[0].ToUpper()))
                 c = (CommandeEnum)Enum.Parse(typeof(CommandeEnum), parts[0].ToUpper());
             else
                 return res;
             
-            parts = cmd.Split(sep, StringSplitOptions.RemoveEmptyEntries);
             int partsSize = parts.Length;
             string[] args = new string[partsSize - 1];
 
             for (int i = 1; i < partsSize; i++)
-                args[i - 1] = parts[i].Replace(">","");
+                args[i - 1] = parts[i];
 
             res = new Commande(c, args);
 

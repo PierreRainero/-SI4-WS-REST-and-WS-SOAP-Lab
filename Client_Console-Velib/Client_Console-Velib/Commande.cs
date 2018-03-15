@@ -17,12 +17,16 @@ namespace Client_Console_Velib{
 
         [Description("ferme l'application")]
         EXIT,
+
+        [Description("listes des commandes supportées par l'application")]
+        HELP,
     };
 
     class Commande{
-        private static readonly string AVAILABLE_CMD = "Liste des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville><nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT);
-        private VelibSOAP.VelibOperationsClient velibClient;
         public CommandeEnum cmd { get; }
+
+        private static readonly string AVAILABLE_CMD = "\nListe des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT) + "\n - " + CommandeEnum.HELP + " : " + Commande.GetEnumDescription(CommandeEnum.HELP);
+        private VelibSOAP.VelibOperationsClient velibClient;
         private string[] args;
 
         public Commande(CommandeEnum cmd, string[] args){
@@ -47,22 +51,25 @@ namespace Client_Console_Velib{
                         availableCmd();
                         break;
                     }
-                    Console.WriteLine(getStations(args[0]));
+                    Console.WriteLine(getStations());
                     break;
 
                 case CommandeEnum.AVAILABLE_BIKES:
-                    if (args.Length != 2){
+                    if (args.Length < 2){
                         availableCmd();
                         break;
                     }
-                    Console.WriteLine(getBikes(args[0], args[1]));
+                    Console.WriteLine(getBikes());
                     break;
 
                 case CommandeEnum.EXIT:
                     return false;
 
-                default:
+                case CommandeEnum.HELP:
                     availableCmd();
+                    break;
+
+                default:
                     break;
             }
 
@@ -79,9 +86,9 @@ namespace Client_Console_Velib{
             return res;
         }
 
-        private string getStations(string city){
+        private string getStations(){
             string res = "";
-            IList<string> stations = velibClient.getStations(city);
+            IList<string> stations = velibClient.getStations(args[0]);
 
             foreach (string item in stations)
                 res += "\n" + item;
@@ -89,10 +96,16 @@ namespace Client_Console_Velib{
             return res;
         }
 
-        private string getBikes(string city, string station){
-            int nbBike = velibClient.getAvailableBikes(city, station);
+        private string getBikes(){
+            string station = "";
+            int size = args.Length;
 
-            return "[" + city + ":" + station + "]Vélos disponibles : " + nbBike;
+            for (int i = 1; i < size; i++)
+                station += args[i] + " ";
+            station = station.Substring(0, station.Length - 1);
+            int nbBike = velibClient.getAvailableBikes(args[0], station);
+
+            return "[" + args[0] + ":" + station + "] Vélos disponibles : " + nbBike;
         }
 
         public static string GetEnumDescription(CommandeEnum value){
