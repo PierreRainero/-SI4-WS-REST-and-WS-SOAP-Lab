@@ -10,32 +10,21 @@ namespace Wcf_SOAP_Velib{
         private static readonly string API_KEY = "f65cdf983437ce5da40eef104ef903fc729da72d";
 
         public IList<string> getCities(){
-            JArray jsonArray = null;
-            IList<string> res = new List<string>();
-
-            try{
-                jsonArray = JArray.Parse(getContracts());
-            }
-            catch (BadRequestException e){
-                return res;
-            }
-
-            int size = jsonArray.Count;
-
-            for (int i = 0; i < size; i++)
-                res.Add((string)((JObject)jsonArray[i])["name"]);
-
-            return res;
+            return parseCities(getContracts());
         }
 
         public async Task<IList<string>> getCitiesAsync(){
-            JArray jsonArray = null;
-            IList<string> res = new List<string>();
             Task<string> getContracts = getContractsAsync();
             string contacts = await getContracts;
 
+            return parseCities(contacts);
+        }
+
+        private IList<string> parseCities(string contracts){
+            JArray jsonArray = null;
+            IList<string> res = new List<string>();
             try{
-                jsonArray = JArray.Parse(contacts);
+                jsonArray = JArray.Parse(contracts);
             }
             catch (BadRequestException e){
                 return res;
