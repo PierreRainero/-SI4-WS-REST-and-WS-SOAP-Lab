@@ -9,10 +9,17 @@ namespace Client_Console_Velib{
             status = true;
         }
 
+        /// <summary>
+        /// Affiche les commandes disponibles sur la console (sortie standard).
+        /// </summary>
         public void availableCmd(){
             Commande.availableCmd();
         }
 
+        /// <summary>
+        /// Exécute la commande entrée par l'utilisateur.
+        /// </summary>
+        /// <param name="cmd">Commande à effectuer telle que l'utilisateur l'a écrite.</param>
         public void executeCmd(string cmd){
             Commande parsedCmd = parseCmd(cmd);
 

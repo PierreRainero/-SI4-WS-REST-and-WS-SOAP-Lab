@@ -1,6 +1,6 @@
 ﻿namespace Client_Velib
 {
-    partial class Form1
+    partial class GUI_Form
     {
         /// <summary>
         /// Variable nécessaire au concepteur.

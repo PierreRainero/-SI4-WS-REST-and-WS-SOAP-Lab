@@ -4,13 +4,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Client_Velib{
-    public partial class Form1 : Form{
+    public partial class GUI_Form : Form{
+        /// <summary>
+        /// Service SOAP utilisé
+        /// </summary>
         private VelibSOAP.VelibOperationsClient velibClient;
 
         private string cityChosen;
         private string stationChosen;
 
-        public Form1(){
+        public GUI_Form(){
             InitializeComponent();
             this.Text = "GUI - Velib";
             velibClient = new VelibSOAP.VelibOperationsClient();

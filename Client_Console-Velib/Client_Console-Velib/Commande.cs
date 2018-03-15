@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace Client_Console_Velib{
 
+    /// <summary>
+    /// Enumeration de toutes les commandes existantes de l'application.
+    /// </summary>
     enum CommandeEnum {
         [Description("liste des villes disponibles")]
         CITIES,
@@ -26,9 +29,17 @@ namespace Client_Console_Velib{
         public CommandeEnum cmd { get; }
 
         private static readonly string AVAILABLE_CMD = "Liste des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT) + "\n - " + CommandeEnum.HELP + " : " + Commande.GetEnumDescription(CommandeEnum.HELP);
+        /// <summary>
+        /// Service SOAP utilisé
+        /// </summary>
         private VelibSOAP.VelibOperationsClient velibClient;
         private string[] args;
 
+        /// <summary>
+        /// Constructeur normal.
+        /// </summary>
+        /// <param name="cmd">Commande à effectuer.</param>
+        /// <param name="args"> Arguments pour la commande à effectuer.</param>
         public Commande(CommandeEnum cmd, string[] args){
             velibClient = new VelibSOAP.VelibOperationsClient();
 
@@ -36,10 +47,17 @@ namespace Client_Console_Velib{
             this.args = args;
         }
 
+        /// <summary>
+        /// Affiche les commandes disponibles sur la console (sortie standard).
+        /// </summary>
         public static void availableCmd(){
             Console.WriteLine(AVAILABLE_CMD);
         }
 
+        /// <summary>
+        /// Exécute la commande à effectuer.
+        /// </summary>
+        /// <returns>Le status du client de type <c>bool</c>. Vaut <c>false</c> si le client doit être arrêté.</returns>
         public bool execute(){
             switch (cmd){
                 case CommandeEnum.CITIES:

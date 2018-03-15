@@ -9,10 +9,12 @@ namespace Wcf_SOAP_Velib{
     public class VelibOperations : IVelibOperations {
         private static readonly string API_KEY = "f65cdf983437ce5da40eef104ef903fc729da72d";
 
+        /// <inheritdoc />
         public IList<string> getCities(){
             return parseCities(getContracts());
         }
 
+        /// <inheritdoc />
         public async Task<IList<string>> getCitiesAsync(){
             Task<string> getContracts = getContractsAsync();
             string contacts = await getContracts;
@@ -38,10 +40,12 @@ namespace Wcf_SOAP_Velib{
             return res;
         }
 
+        /// <inheritdoc />
         public IList<string> getStations(string city){
             return parseStations(getDataForCity(city));
         }
 
+        /// <inheritdoc />
         public async Task<IList<string>> getStationsAsync(string city){
             Task<string> getCityData = getDataForCityAsync(city);
             string cityData = await getCityData;
@@ -68,10 +72,12 @@ namespace Wcf_SOAP_Velib{
             return res;
         }
 
+        /// <inheritdoc />
         public int getAvailableBikes(string city, string station){
             return parseAvailableBikes(getDataForCity(city), station);
         }
 
+        /// <inheritdoc />
         public async Task<int> getAvailableBikesAsync(string city, string station){
             Task<string> getCityData = getDataForCityAsync(city);
             string cityData = await getCityData;
