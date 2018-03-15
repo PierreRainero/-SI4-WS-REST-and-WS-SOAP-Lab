@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.cityLabel = new System.Windows.Forms.Label();
-            this.cityInput = new System.Windows.Forms.TextBox();
             this.cityButton = new System.Windows.Forms.Button();
-            this.stationsComboBox = new System.Windows.Forms.ComboBox();
+            this.stationComboBox = new System.Windows.Forms.ComboBox();
             this.bikeLabelNb = new System.Windows.Forms.Label();
             this.bikeNb = new System.Windows.Forms.Label();
+            this.stationLabel = new System.Windows.Forms.Label();
+            this.cityComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // cityLabel
@@ -45,13 +46,6 @@
             this.cityLabel.TabIndex = 0;
             this.cityLabel.Text = "Ville";
             // 
-            // cityInput
-            // 
-            this.cityInput.Location = new System.Drawing.Point(71, 6);
-            this.cityInput.Name = "cityInput";
-            this.cityInput.Size = new System.Drawing.Size(180, 20);
-            this.cityInput.TabIndex = 1;
-            // 
             // cityButton
             // 
             this.cityButton.Location = new System.Drawing.Point(111, 32);
@@ -62,14 +56,14 @@
             this.cityButton.UseVisualStyleBackColor = true;
             this.cityButton.Click += new System.EventHandler(this.cityButton_Click);
             // 
-            // stationsComboBox
+            // stationComboBox
             // 
-            this.stationsComboBox.FormattingEnabled = true;
-            this.stationsComboBox.Location = new System.Drawing.Point(32, 85);
-            this.stationsComboBox.Name = "stationsComboBox";
-            this.stationsComboBox.Size = new System.Drawing.Size(219, 21);
-            this.stationsComboBox.TabIndex = 3;
-            this.stationsComboBox.SelectedIndexChanged += new System.EventHandler(this.selectedItemChange);
+            this.stationComboBox.FormattingEnabled = true;
+            this.stationComboBox.Location = new System.Drawing.Point(71, 85);
+            this.stationComboBox.Name = "stationComboBox";
+            this.stationComboBox.Size = new System.Drawing.Size(180, 21);
+            this.stationComboBox.TabIndex = 3;
+            this.stationComboBox.SelectedIndexChanged += new System.EventHandler(this.selectedItemChange);
             // 
             // bikeLabelNb
             // 
@@ -88,16 +82,34 @@
             this.bikeNb.Size = new System.Drawing.Size(0, 13);
             this.bikeNb.TabIndex = 5;
             // 
+            // stationLabel
+            // 
+            this.stationLabel.AutoSize = true;
+            this.stationLabel.Location = new System.Drawing.Point(30, 88);
+            this.stationLabel.Name = "stationLabel";
+            this.stationLabel.Size = new System.Drawing.Size(40, 13);
+            this.stationLabel.TabIndex = 6;
+            this.stationLabel.Text = "Station";
+            // 
+            // cityComboBox
+            // 
+            this.cityComboBox.FormattingEnabled = true;
+            this.cityComboBox.Location = new System.Drawing.Point(71, 6);
+            this.cityComboBox.Name = "cityComboBox";
+            this.cityComboBox.Size = new System.Drawing.Size(180, 21);
+            this.cityComboBox.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.cityComboBox);
+            this.Controls.Add(this.stationLabel);
             this.Controls.Add(this.bikeNb);
             this.Controls.Add(this.bikeLabelNb);
-            this.Controls.Add(this.stationsComboBox);
+            this.Controls.Add(this.stationComboBox);
             this.Controls.Add(this.cityButton);
-            this.Controls.Add(this.cityInput);
             this.Controls.Add(this.cityLabel);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -109,11 +121,12 @@
         #endregion
 
         private System.Windows.Forms.Label cityLabel;
-        private System.Windows.Forms.TextBox cityInput;
         private System.Windows.Forms.Button cityButton;
-        private System.Windows.Forms.ComboBox stationsComboBox;
+        private System.Windows.Forms.ComboBox stationComboBox;
         private System.Windows.Forms.Label bikeLabelNb;
         private System.Windows.Forms.Label bikeNb;
+        private System.Windows.Forms.Label stationLabel;
+        private System.Windows.Forms.ComboBox cityComboBox;
     }
 }
 

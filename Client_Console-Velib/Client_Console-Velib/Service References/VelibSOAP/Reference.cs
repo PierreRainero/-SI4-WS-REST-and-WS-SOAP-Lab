@@ -8,12 +8,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Client_Velib.VelibSOAP {
+namespace Client_Console_Velib.VelibSOAP {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="VelibSOAP.IVelibOperations")]
     public interface IVelibOperations {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IVelibOperations/getCities", ReplyAction="http://tempuri.org/IVelibOperations/getCitiesResponse")]
+        string[] getCities();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IVelibOperations/getCities", ReplyAction="http://tempuri.org/IVelibOperations/getCitiesResponse")]
+        System.Threading.Tasks.Task<string[]> getCitiesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IVelibOperations/getStations", ReplyAction="http://tempuri.org/IVelibOperations/getStationsResponse")]
         string[] getStations(string city);
@@ -29,12 +35,12 @@ namespace Client_Velib.VelibSOAP {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IVelibOperationsChannel : Client_Velib.VelibSOAP.IVelibOperations, System.ServiceModel.IClientChannel {
+    public interface IVelibOperationsChannel : Client_Console_Velib.VelibSOAP.IVelibOperations, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class VelibOperationsClient : System.ServiceModel.ClientBase<Client_Velib.VelibSOAP.IVelibOperations>, Client_Velib.VelibSOAP.IVelibOperations {
+    public partial class VelibOperationsClient : System.ServiceModel.ClientBase<Client_Console_Velib.VelibSOAP.IVelibOperations>, Client_Console_Velib.VelibSOAP.IVelibOperations {
         
         public VelibOperationsClient() {
         }
@@ -53,6 +59,14 @@ namespace Client_Velib.VelibSOAP {
         
         public VelibOperationsClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public string[] getCities() {
+            return base.Channel.getCities();
+        }
+        
+        public System.Threading.Tasks.Task<string[]> getCitiesAsync() {
+            return base.Channel.getCitiesAsync();
         }
         
         public string[] getStations(string city) {

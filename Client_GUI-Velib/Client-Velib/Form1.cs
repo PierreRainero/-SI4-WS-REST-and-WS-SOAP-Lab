@@ -13,26 +13,30 @@ namespace Client_Velib{
             InitializeComponent();
             this.Text = "GUI - Velib";
             velibClient = new VelibSOAP.VelibOperationsClient();
+
+            IList<string> response = velibClient.getCities();
+            foreach (string item in response)
+                cityComboBox.Items.Add(item);
         }
 
         private void cityButton_Click(object sender, EventArgs e){
-            cityChosen = cityInput.Text;
+            cityChosen = cityComboBox.SelectedItem.ToString();
 
             if(cityChosen != ""){
                 IList<string> response = velibClient.getStations(cityChosen);
-                stationsComboBox.Items.Clear();
+                stationComboBox.Items.Clear();
                 bikeNb.Text = "";
 
                 foreach (string item in response)
-                    stationsComboBox.Items.Add(item);
+                    stationComboBox.Items.Add(item);
 
             }
         }
 
         private void selectedItemChange(object sender, EventArgs e){
-            stationChosen = stationsComboBox.SelectedItem.ToString();
-            cityChosen = cityInput.Text;
-
+            stationChosen = stationComboBox.SelectedItem.ToString();
+            cityChosen = cityComboBox.SelectedItem.ToString();
+            
             if (cityChosen != "" && stationChosen != "")
                 bikeNb.Text = velibClient.getAvailableBikes(cityChosen, stationChosen).ToString();
         }

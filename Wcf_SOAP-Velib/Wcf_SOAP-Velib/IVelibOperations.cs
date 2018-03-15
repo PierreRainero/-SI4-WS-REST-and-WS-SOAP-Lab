@@ -6,6 +6,9 @@ namespace Wcf_SOAP_Velib {
     [ServiceContract]
     public interface IVelibOperations {
         [OperationContract]
+        IList<string> getCities();
+
+        [OperationContract]
         IList<string> getStations(string city);
 
         [OperationContract]
