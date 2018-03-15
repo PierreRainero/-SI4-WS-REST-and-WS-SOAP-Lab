@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Client_Velib{
@@ -14,9 +15,16 @@ namespace Client_Velib{
             this.Text = "GUI - Velib";
             velibClient = new VelibSOAP.VelibOperationsClient();
 
-            IList<string> response = velibClient.getCities();
+            initCities();
+        }
+
+        private async void initCities(){
+            Task<string[]> asyncResponse = velibClient.getCitiesAsync();
+            string[] response = await asyncResponse;
+
             foreach (string item in response)
                 cityComboBox.Items.Add(item);
+            cityComboBox.SelectedIndex = 0;
         }
 
         private void cityButton_Click(object sender, EventArgs e){

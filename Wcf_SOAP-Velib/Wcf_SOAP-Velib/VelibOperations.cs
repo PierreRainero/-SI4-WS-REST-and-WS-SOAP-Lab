@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Wcf_SOAP_Velib{
     public class VelibOperations : IVelibOperations {
@@ -14,6 +15,27 @@ namespace Wcf_SOAP_Velib{
 
             try{
                 jsonArray = JArray.Parse(getContracts());
+            }
+            catch (BadRequestException e){
+                return res;
+            }
+
+            int size = jsonArray.Count;
+
+            for (int i = 0; i < size; i++)
+                res.Add((string)((JObject)jsonArray[i])["name"]);
+
+            return res;
+        }
+
+        public async Task<IList<string>> getCitiesAsync(){
+            JArray jsonArray = null;
+            IList<string> res = new List<string>();
+            Task<string> getContracts = getContractsAsync();
+            string contacts = await getContracts;
+
+            try{
+                jsonArray = JArray.Parse(contacts);
             }
             catch (BadRequestException e){
                 return res;
@@ -78,6 +100,12 @@ namespace Wcf_SOAP_Velib{
             }
 
             return reader.ReadToEnd();
+        }
+
+        private Task<string> getContractsAsync(){
+            return Task<string>.Run(() => {
+                return getContracts();
+            });
         }
 
         private string getDataForCity(string city) {
