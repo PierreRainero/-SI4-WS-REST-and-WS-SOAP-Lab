@@ -131,7 +131,7 @@ namespace Client_Console_Velib{
             return "[" + args[0] + ":" + station + "] Vélos disponibles : " + nbBike;
         }
 
-        public static string GetEnumDescription(CommandeEnum value){
+        private static string GetEnumDescription(CommandeEnum value){
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
             DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);

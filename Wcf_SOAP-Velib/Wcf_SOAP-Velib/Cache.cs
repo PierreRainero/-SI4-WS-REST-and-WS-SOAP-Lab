@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 
 namespace Wcf_SOAP_Velib {
-    class Cache{
+    [Serializable]
+    class Cache {
         private Tuple<DateTime, IList<string>> savedCities;
         private IDictionary<string, Tuple<DateTime, IList<string>>> savedStations;
         private TimeSpan duration;
@@ -49,6 +50,7 @@ namespace Wcf_SOAP_Velib {
         /// <param name="cities">Nouvelle liste des villes disponibles.</param>
         public void updateCities(IList<string> cities){
             savedCities = new Tuple<DateTime, IList<string>>(DateTime.Now, cities);
+            SaverLoader.WriteToBinaryFile<Cache>(System.AppDomain.CurrentDomain.BaseDirectory + "/cache", this);
         }
 
         /// <summary>
@@ -79,6 +81,7 @@ namespace Wcf_SOAP_Velib {
         /// <param name="stations">Nouvelle liste des stations disponibles.</param>
         public void updateStations(string cityName, IList<string> stations){
             savedStations.Add(cityName, new Tuple<DateTime, IList<string>>(DateTime.Now, stations));
+            SaverLoader.WriteToBinaryFile<Cache>(System.AppDomain.CurrentDomain.BaseDirectory + "/cache", this);
         }
     }
 }
