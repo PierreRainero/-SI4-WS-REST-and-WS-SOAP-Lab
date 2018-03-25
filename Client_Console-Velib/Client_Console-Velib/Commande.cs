@@ -59,6 +59,8 @@ namespace Client_Console_Velib{
         /// </summary>
         /// <returns>Le status du client de type <c>bool</c>. Vaut <c>false</c> si le client doit être arrêté.</returns>
         public bool execute(){
+            DateTime beforeExec = DateTime.Now;
+
             switch (cmd){
                 case CommandeEnum.CITIES:
                     Console.WriteLine(getCities());
@@ -90,6 +92,9 @@ namespace Client_Console_Velib{
                 default:
                     break;
             }
+
+            DateTime afterExec = DateTime.Now;
+            Console.WriteLine("\nTemps d'exécution : "+ (afterExec-beforeExec));
 
             return true;
         }

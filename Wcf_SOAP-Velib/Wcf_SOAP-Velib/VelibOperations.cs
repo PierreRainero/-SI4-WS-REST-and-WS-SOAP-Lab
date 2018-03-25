@@ -8,14 +8,23 @@ using System.Threading.Tasks;
 namespace Wcf_SOAP_Velib{
     public class VelibOperations : IVelibOperations {
         private static readonly string API_KEY = "f65cdf983437ce5da40eef104ef903fc729da72d";
+        private Cache cache = new Cache();
 
         /// <inheritdoc />
         public IList<string> getCities(){
+            IList<string> res = cache.checkCities();
+            if (res != null)
+                return res;
+
             return parseCities(getContracts());
         }
 
         /// <inheritdoc />
         public async Task<IList<string>> getCitiesAsync(){
+            IList<string> res = cache.checkCities();
+            if (res != null)
+                return res;
+
             Task<string> getContracts = getContractsAsync();
             string contacts = await getContracts;
 
@@ -37,23 +46,33 @@ namespace Wcf_SOAP_Velib{
             for (int i = 0; i < size; i++)
                 res.Add((string)((JObject)jsonArray[i])["name"]);
 
+            cache.updateCities(res);
+
             return res;
         }
 
         /// <inheritdoc />
         public IList<string> getStations(string city){
-            return parseStations(getDataForCity(city));
+            IList<string> res = cache.checkStations(city);
+            if (res != null)
+                return res;
+
+            return parseStations(city, getDataForCity(city));
         }
 
         /// <inheritdoc />
         public async Task<IList<string>> getStationsAsync(string city){
+            IList<string> res = cache.checkStations(city);
+            if (res != null)
+                return res;
+
             Task<string> getCityData = getDataForCityAsync(city);
             string cityData = await getCityData;
 
-            return parseStations(cityData);
+            return parseStations(city, cityData);
         }
 
-        private IList<string> parseStations(string cityData){
+        private IList<string> parseStations(string city, string cityData){
             JArray jsonArray = null;
             IList<string> res = new List<string>();
 
@@ -68,6 +87,8 @@ namespace Wcf_SOAP_Velib{
 
             for (int i = 0; i < size; i++)
                 res.Add((string)((JObject)jsonArray[i])["name"]);
+
+            cache.updateStations(city, res);
 
             return res;
         }

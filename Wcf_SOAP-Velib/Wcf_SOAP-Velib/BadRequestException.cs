@@ -4,7 +4,7 @@ namespace Wcf_SOAP_Velib{
 
     /// <summary>
     /// Classe d'exception pour le service SOAP.
-    /// Utilisé suite à une requête mal formée.
+    /// Utilisée suite à une requête mal formée.
     /// </summary>
     class BadRequestException : Exception {
         private string parameter;
