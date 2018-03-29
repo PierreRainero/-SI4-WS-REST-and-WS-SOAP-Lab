@@ -32,7 +32,7 @@ Le dépôt courant est composé de 5 projets (de manière à bien découper en c
  _L'API publique est documentée._  
 
  4. **Monitoring** : Le dossier `monitoring` est composé de deux projets. Le premier `Wcf_Monitoring` va créer un service WCF (comme pour le service SOAP-Velib) qui va gérer les logs. Il va être appelé par `Wcf_SOAP-Velib` à chaque fois que celui-ci est appelé, la persistence est gérée de la même manière que pour le cache (voir section suivante). Ce service est également référencé par le projet `Client-Console_Monitoring` qui a un comportement analogue à `Client_Console-Velib`, et permet via un terminal de consulter divers données comme le nombre de requêtes pour une période donnée ou le délais moyen d'une méthode communiquant avec l'API REST JC Decaux. On a l'architecture suivante :    
- ![appels](doc/appels.jpg)
+ ![appels](doc/appels.jpg)    
   _L'API publique est documentée._
 
 ### **Cache**
