@@ -15,7 +15,8 @@ Pour que tous les projets fonctionnent correctement il est nécessaire de les la
  2. Wcf_SOAP-Velib
  3. _Le projet/fonctionnalité que vous souhaitez tester_   
 
-Voir "Architecture du projet".
+Voir "Architecture du projet".   
+**(?)** Si on choisit d'importer tous les projets dans une seule solution (configuration actuelle) alors l'ordre des dépendances est normalement déjà implémenté, et lors d'un lancement la totalité des projets sera lancée.
 
 ## Architecture du projet
 Le dépôt courant est composé de 5 projets (de manière à bien découper en cas de client/serveur) :  
