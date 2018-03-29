@@ -5,6 +5,10 @@ namespace Client_Console_Velib{
         private static readonly string separator = "———————————————————————————————————————————————————————————";
         public bool status { get; private set; }
 
+
+        /// <summary>
+        /// Constructeur par défaut.
+        /// </summary>
         public Client(){
             status = true;
         }

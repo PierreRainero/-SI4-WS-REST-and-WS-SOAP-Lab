@@ -16,10 +16,10 @@ namespace Client_Console_Monitoring.LogService {
     public interface ILog {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILog/recordRequest", ReplyAction="http://tempuri.org/ILog/recordRequestResponse")]
-        void recordRequest(System.DateTime date, string method, bool dataInCache);
+        void recordRequest(System.DateTime date, string method, bool dataInCache, System.TimeSpan delay);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILog/recordRequest", ReplyAction="http://tempuri.org/ILog/recordRequestResponse")]
-        System.Threading.Tasks.Task recordRequestAsync(System.DateTime date, string method, bool dataInCache);
+        System.Threading.Tasks.Task recordRequestAsync(System.DateTime date, string method, bool dataInCache, System.TimeSpan delay);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILog/getAllLogs", ReplyAction="http://tempuri.org/ILog/getAllLogsResponse")]
         string getAllLogs();
@@ -32,6 +32,12 @@ namespace Client_Console_Monitoring.LogService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILog/getClientResquests", ReplyAction="http://tempuri.org/ILog/getClientResquestsResponse")]
         System.Threading.Tasks.Task<int> getClientResquestsAsync(System.DateTime begin, System.DateTime end);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILog/getAVGDelayOf", ReplyAction="http://tempuri.org/ILog/getAVGDelayOfResponse")]
+        string getAVGDelayOf(string method);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILog/getAVGDelayOf", ReplyAction="http://tempuri.org/ILog/getAVGDelayOfResponse")]
+        System.Threading.Tasks.Task<string> getAVGDelayOfAsync(string method);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,12 +67,12 @@ namespace Client_Console_Monitoring.LogService {
                 base(binding, remoteAddress) {
         }
         
-        public void recordRequest(System.DateTime date, string method, bool dataInCache) {
-            base.Channel.recordRequest(date, method, dataInCache);
+        public void recordRequest(System.DateTime date, string method, bool dataInCache, System.TimeSpan delay) {
+            base.Channel.recordRequest(date, method, dataInCache, delay);
         }
         
-        public System.Threading.Tasks.Task recordRequestAsync(System.DateTime date, string method, bool dataInCache) {
-            return base.Channel.recordRequestAsync(date, method, dataInCache);
+        public System.Threading.Tasks.Task recordRequestAsync(System.DateTime date, string method, bool dataInCache, System.TimeSpan delay) {
+            return base.Channel.recordRequestAsync(date, method, dataInCache, delay);
         }
         
         public string getAllLogs() {
@@ -83,6 +89,14 @@ namespace Client_Console_Monitoring.LogService {
         
         public System.Threading.Tasks.Task<int> getClientResquestsAsync(System.DateTime begin, System.DateTime end) {
             return base.Channel.getClientResquestsAsync(begin, end);
+        }
+        
+        public string getAVGDelayOf(string method) {
+            return base.Channel.getAVGDelayOf(method);
+        }
+        
+        public System.Threading.Tasks.Task<string> getAVGDelayOfAsync(string method) {
+            return base.Channel.getAVGDelayOfAsync(method);
         }
     }
 }

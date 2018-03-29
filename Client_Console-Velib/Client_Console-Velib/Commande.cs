@@ -39,7 +39,7 @@ namespace Client_Console_Velib{
         /// Constructeur normal.
         /// </summary>
         /// <param name="cmd">Commande à effectuer.</param>
-        /// <param name="args"> Arguments pour la commande à effectuer.</param>
+        /// <param name="args">Arguments pour la commande à effectuer.</param>
         public Commande(CommandeEnum cmd, string[] args){
             velibClient = new VelibSOAP.VelibOperationsClient();
 
