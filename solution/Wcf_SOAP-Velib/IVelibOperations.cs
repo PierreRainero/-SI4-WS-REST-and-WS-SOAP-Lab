@@ -4,7 +4,7 @@ using System.ServiceModel;
 
 namespace Wcf_SOAP_Velib {
 
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IVelibEvent))]
     public interface IVelibOperations {
 
         /// <summary>
@@ -30,5 +30,8 @@ namespace Wcf_SOAP_Velib {
         ///<returns>Un numérique de type <c>int</c> symbolisant les vélos disponibles.</returns>
         [OperationContract]
         int getAvailableBikes(string city, string station);
+
+        [OperationContract]
+        void SubscribeAvailableBikesChanged(string city, string station, int millis);
     }
 }

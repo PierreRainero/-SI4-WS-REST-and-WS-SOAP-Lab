@@ -10,8 +10,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client-Velib", "Client-Velib\Client-Velib.csproj", "{761A4FAF-4C3D-45A4-BFEA-882D4F67B02A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_Console-Velib", "Client_Console-Velib\Client_Console-Velib.csproj", "{32F5F373-7811-4EDC-BA26-E85F02E30D32}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2099B61-DB06-4D9D-ABEA-621FBCA79A0E} = {B2099B61-DB06-4D9D-ABEA-621FBCA79A0E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wcf_SOAP-Velib", "Wcf_SOAP-Velib\Wcf_SOAP-Velib.csproj", "{B2099B61-DB06-4D9D-ABEA-621FBCA79A0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostLauncher", "HostLauncher\HostLauncher.csproj", "{8E4AF509-68EA-4EE4-AC38-92725C794E9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{19C6996A-6826-4316-BD58-349430A1CD57} = {19C6996A-6826-4316-BD58-349430A1CD57}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,10 @@ Global
 		{B2099B61-DB06-4D9D-ABEA-621FBCA79A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2099B61-DB06-4D9D-ABEA-621FBCA79A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2099B61-DB06-4D9D-ABEA-621FBCA79A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E4AF509-68EA-4EE4-AC38-92725C794E9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E4AF509-68EA-4EE4-AC38-92725C794E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E4AF509-68EA-4EE4-AC38-92725C794E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E4AF509-68EA-4EE4-AC38-92725C794E9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8733/Wcf_SOAP_Velib/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:9091/VelibEvent" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="1dbb8f03-1c99-4f5b-8906-f7df99a048c7" SourceId="1" SourceUrl="http://localhost:8733/Wcf_SOAP_Velib/?disco" />
-    <MetadataFile FileName="VelibOperations.wsdl" MetadataType="Wsdl" ID="93703845-cb15-4809-9a71-7ad33bb816ee" SourceId="1" SourceUrl="http://localhost:8733/Wcf_SOAP_Velib/?wsdl" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="7ae2e762-c241-42be-b7f2-2187aa4564a4" SourceId="1" SourceUrl="http://localhost:8733/Wcf_SOAP_Velib/?xsd=xsd2" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="734d801a-1cf2-4ef9-ac44-a45cf621f981" SourceId="1" SourceUrl="http://localhost:8733/Wcf_SOAP_Velib/?xsd=xsd1" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="1e531819-cabd-4294-9637-2160afe1dd0b" SourceId="1" SourceUrl="http://localhost:8733/Wcf_SOAP_Velib/?xsd=xsd0" />
+    <MetadataFile FileName="VelibEvent.xsd" MetadataType="Schema" ID="fd9bb6e7-5dd7-43d3-8619-b6a9a5c6db98" SourceId="1" SourceUrl="http://localhost:9091/VelibEvent?xsd=xsd0" />
+    <MetadataFile FileName="VelibEvent1.xsd" MetadataType="Schema" ID="7cf1076e-0d45-49a4-9b96-99097e4d3a3e" SourceId="1" SourceUrl="http://localhost:9091/VelibEvent?xsd=xsd1" />
+    <MetadataFile FileName="VelibEvent2.xsd" MetadataType="Schema" ID="fbc488e5-6da4-4c2a-9099-05a01198960e" SourceId="1" SourceUrl="http://localhost:9091/VelibEvent?xsd=xsd2" />
+    <MetadataFile FileName="VelibEvent.disco" MetadataType="Disco" ID="365f45f7-3e8f-4cce-8259-6cdc67f88647" SourceId="1" SourceUrl="http://localhost:9091/VelibEvent?disco" />
+    <MetadataFile FileName="VelibOperations1.wsdl" MetadataType="Wsdl" ID="4d1c3b09-adf2-40cc-9ab8-9d8d4e678d04" SourceId="1" SourceUrl="http://localhost:9091/VelibEvent?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

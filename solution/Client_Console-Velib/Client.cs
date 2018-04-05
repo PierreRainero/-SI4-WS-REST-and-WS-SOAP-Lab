@@ -1,15 +1,21 @@
 ﻿using System;
+using System.ServiceModel;
 
 namespace Client_Console_Velib{
     class Client{
         private static readonly string separator = "———————————————————————————————————————————————————————————";
+        private VelibSOAP.VelibOperationsClient velibClient;
         public bool status { get; private set; }
 
 
         /// <summary>
         /// Constructeur par défaut.
         /// </summary>
-        public Client(){
+        public Client() {
+            VelibServiceCallbackSink objsink = new VelibServiceCallbackSink();
+            InstanceContext iCntxt = new InstanceContext(objsink);
+            velibClient = new VelibSOAP.VelibOperationsClient(iCntxt);
+
             status = true;
         }
 
@@ -56,7 +62,7 @@ namespace Client_Console_Velib{
             for (int i = 1; i < partsSize; i++)
                 args[i - 1] = parts[i];
 
-            res = new Commande(c, args);
+            res = new Commande(c, args, velibClient);
 
             return res;
         }

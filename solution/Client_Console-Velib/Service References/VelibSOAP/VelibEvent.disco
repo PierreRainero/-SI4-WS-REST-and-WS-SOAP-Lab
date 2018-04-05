@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="http://localhost:8733/Wcf_SOAP_Velib/?wsdl" docRef="http://localhost:8733/Wcf_SOAP_Velib/" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <contractRef ref="http://localhost:9091/VelibEvent?wsdl" docRef="http://localhost:9091/VelibEvent" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
 </discovery>

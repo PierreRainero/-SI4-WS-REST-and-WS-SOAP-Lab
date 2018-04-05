@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using System.ServiceModel;
 
 namespace Client_Console_Velib{
 
@@ -18,6 +19,9 @@ namespace Client_Console_Velib{
         [Description("nombre de vélos disponibles pour une station et une ville donnée")]
         AVAILABLE_BIKES,
 
+        [Description("reçoit une notification dès que le nombre de vélos d'une station change")]
+        SUBCRIBE,
+
         [Description("ferme l'application")]
         EXIT,
 
@@ -28,7 +32,7 @@ namespace Client_Console_Velib{
     class Commande{
         public CommandeEnum cmd { get; }
 
-        private static readonly string AVAILABLE_CMD = "Liste des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT) + "\n - " + CommandeEnum.HELP + " : " + Commande.GetEnumDescription(CommandeEnum.HELP);
+        private static readonly string AVAILABLE_CMD = "Liste des commandes :\n - " + CommandeEnum.CITIES + " : " + Commande.GetEnumDescription(CommandeEnum.CITIES) + "\n - " + CommandeEnum.STATIONS + " <nom ville> : " + Commande.GetEnumDescription(CommandeEnum.STATIONS) + "\n - " + CommandeEnum.AVAILABLE_BIKES + " <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.AVAILABLE_BIKES) + "\n - " + CommandeEnum.SUBCRIBE + " <duree entre deux requêtes (millis)> <nom ville> <nom station> : " + Commande.GetEnumDescription(CommandeEnum.SUBCRIBE) + "\n - " + CommandeEnum.EXIT + " : " + Commande.GetEnumDescription(CommandeEnum.EXIT) + "\n - " + CommandeEnum.HELP + " : " + Commande.GetEnumDescription(CommandeEnum.HELP);
         /// <summary>
         /// Service SOAP utilisé
         /// </summary>
@@ -40,8 +44,8 @@ namespace Client_Console_Velib{
         /// </summary>
         /// <param name="cmd">Commande à effectuer.</param>
         /// <param name="args">Arguments pour la commande à effectuer.</param>
-        public Commande(CommandeEnum cmd, string[] args){
-            velibClient = new VelibSOAP.VelibOperationsClient();
+        public Commande(CommandeEnum cmd, string[] args, VelibSOAP.VelibOperationsClient velibClient) {
+            this.velibClient = velibClient;
 
             this.cmd = cmd;
             this.args = args;
@@ -80,6 +84,15 @@ namespace Client_Console_Velib{
                         break;
                     }
                     Console.WriteLine(getBikes());
+                    break;
+
+                case CommandeEnum.SUBCRIBE:
+                    if (args.Length < 3){
+                        Console.WriteLine("/!\\ La commande \"SUBCRIBE\" prend deux arguments");
+                        break;
+                    }
+                    velibClient.SubscribeAvailableBikesChanged(args[1], args[2], Convert.ToInt32(args[0]));
+                    Console.WriteLine("Vous vous êtes abonné à [" + args[1] + " : "+ args[2] + "]");
                     break;
 
                 case CommandeEnum.EXIT:

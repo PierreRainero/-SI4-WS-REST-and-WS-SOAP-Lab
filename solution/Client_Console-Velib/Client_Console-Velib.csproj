@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="VelibServiceCallbackSink.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -66,7 +67,17 @@
     <None Include="Service References\VelibSOAP\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\VelibSOAP\VelibEvent.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\VelibSOAP\VelibEvent1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\VelibSOAP\VelibEvent2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\VelibSOAP\VelibOperations.wsdl" />
+    <None Include="Service References\VelibSOAP\VelibOperations1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -88,6 +99,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\VelibSOAP\VelibEvent.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

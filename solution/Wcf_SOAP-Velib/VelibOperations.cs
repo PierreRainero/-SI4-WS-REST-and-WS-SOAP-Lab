@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.ServiceModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Wcf_SOAP_Velib{
@@ -12,9 +14,15 @@ namespace Wcf_SOAP_Velib{
         private LogService.LogClient logClient = new LogService.LogClient();
         private TimeSpan responseDelay;
 
+        static Action<string, string, int> m_EventCounter = delegate { };
+        private IDictionary<Tuple<string,string>, int> bikes;
+
         private void getCache(){
             cache = SaverLoader.ReadFromBinaryFile<Cache>(System.AppDomain.CurrentDomain.BaseDirectory + "/cache");
             cache = cache == null ? new Cache() : cache;
+
+            if (bikes == null)
+                bikes = new Dictionary<Tuple<string, string>, int>();
         }
 
         /// <inheritdoc />
@@ -125,8 +133,19 @@ namespace Wcf_SOAP_Velib{
 
         /// <inheritdoc />
         public int getAvailableBikes(string city, string station){
+            int outRes;
+
             int res = parseAvailableBikes(getDataForCity(city), station);
             logClient.recordRequest(DateTime.Now, "getAvailableBikes", false, responseDelay);
+
+            //Si on ne connait pas la valeur alors on l'ajoute pour la garder en mémoire
+            if (!bikes.TryGetValue(new Tuple<string, string>(city, station), out outRes))
+                bikes.Add(new Tuple<string, string>(city, station), res);
+            else if (outRes != res){ //Sinon on va regarder si le nombre de vélos à changer et si c'est le cas notifier le client
+                bikes.Add(new Tuple<string, string>(city, station), outRes);
+                m_EventCounter(city, station, outRes);
+            }
+
             return res;
         }
 
@@ -210,5 +229,27 @@ namespace Wcf_SOAP_Velib{
             });
         }
 
+        public void SubscribeAvailableBikesChanged(string city, string station, int millis){
+            IVelibEvent subscriber = OperationContext.Current.GetCallbackChannel<IVelibEvent>();
+            m_EventCounter += subscriber.ValueChanged;
+
+            Thread updater = new Thread(new ParameterizedThreadStart(update));
+            Tuple<string, Tuple<string, int>> datas = new Tuple<string, Tuple<string, int>>(city, new Tuple<string, int>(station, millis));
+            updater.Start(datas);
+        }
+
+        private void update(object datas)
+        {
+            Tuple<string, Tuple<string, int>> datasL = (Tuple<string, Tuple<string, int>>)datas;
+            string city = datasL.Item1;
+            string station = datasL.Item2.Item1;
+            int millis = datasL.Item2.Item2;
+
+            while (true){
+                getAvailableBikes(city, station);
+
+                Thread.Sleep(millis);
+            }
+        }
     }
 }
