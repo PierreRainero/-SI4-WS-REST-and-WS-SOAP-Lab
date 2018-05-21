@@ -141,7 +141,7 @@ namespace Wcf_SOAP_Velib{
             //Si on ne connait pas la valeur alors on l'ajoute pour la garder en mémoire
             if (!bikes.TryGetValue(new Tuple<string, string>(city, station), out outRes))
                 bikes.Add(new Tuple<string, string>(city, station), res);
-            else if (outRes != res){ //Sinon on va regarder si le nombre de vélos à changer et si c'est le cas notifier le client
+            else if (outRes != res){ //Sinon on va regarder si le nombre de vélos a changé et si c'est le cas notifier le client
                 bikes.Add(new Tuple<string, string>(city, station), outRes);
                 m_EventCounter(city, station, outRes);
             }
